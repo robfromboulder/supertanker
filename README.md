@@ -1,8 +1,8 @@
 # Supertanker
 Supertanker is an experimental, unsupported, and definitely-not-for-production Docker container that combines Graylog, MongoDB, OpenSearch, Supervisor, and Ubuntu.
 
-[![CodeFactor](https://www.codefactor.io/repository/github/RobDickinson/supertanker/badge)](https://www.codefactor.io/repository/github/RobDickinson/supertanker)
-[![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/RobDickinson/supertanker/blob/v6.0.x/CONTRIBUTING.md)
+[![CodeFactor](https://www.codefactor.io/repository/github/robfromboulder/supertanker/badge)](https://www.codefactor.io/repository/github/robfromboulder/supertanker)
+[![Contributing](https://img.shields.io/badge/contributions-welcome-green.svg)](https://github.com/robfromboulder/supertanker/blob/v6.0.x/CONTRIBUTING.md)
 
 
 ## Running With Docker

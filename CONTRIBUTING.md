@@ -37,7 +37,7 @@ docker stop supertanker
 
 This workflow allows you to easily create your own copy of supertanker, try out some changes, and then share your changes back to be merged, with feedback from other contributors.
 
-1. Create a fork of RobDickinson/supertanker
+1. Create a fork of robfromboulder/supertanker
 2. Create a feature branch
 3. Build and test local changes
 4. Commit changes to your feature branch
