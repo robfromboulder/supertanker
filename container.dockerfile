@@ -3,6 +3,8 @@ FROM ubuntu:jammy-20240911.1
 ARG VERSION
 ENV CONTAINER_VERSION=$VERSION
 ENV GRAYLOG_VERSION=6.1.4-1
+ENV GRAYLOG_PLUGIN_DIR=/usr/share/graylog-server/plugin
+ENV LOGS_DIR=/opt/supervisor/logs
 
 # Switch to Berkeley OCF mirror for updates, install curl and gnupg
 RUN sed -i 's|ports.ubuntu.com|mirrors.ocf.berkeley.edu|g' /etc/apt/sources.list && apt update && apt install --no-install-recommends -y ca-certificates curl gnupg wget && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/ssl/private/ssl-cert-snakeoil.key && install -m 0755 -d /etc/apt/keyrings
@@ -22,7 +24,7 @@ mkdir -p /data && chmod a+rwx /data && \
 mkdir -p /opt/supervisor/bin && mkdir -p /opt/supervisor/logs && chown -R runtime:runtime /opt/supervisor && \
 mkdir -p /usr/local/var && chown -R runtime:runtime /usr/local/var && \
 chown -R runtime:runtime /var/log/mongodb && \
-chown -R runtime:runtime /etc/default/graylog-server /etc/graylog/server /var/lib/graylog-server /var/log/graylog-server && \
+chown -R runtime:runtime /etc/default/graylog-server /etc/graylog/server /var/lib/graylog-server /var/log/graylog-server $GRAYLOG_PLUGIN_DIR && \
 chown -R runtime:runtime /etc/default/graylog-datanode /etc/graylog/datanode /var/lib/graylog-datanode /var/log/graylog-datanode
 
 # Configure datanode
@@ -53,5 +55,5 @@ EXPOSE 12201/udp
 EXPOSE 13301/tcp
 EXPOSE 13302/tcp
 USER runtime
-WORKDIR /opt/supervisor/logs
+WORKDIR $LOGS_DIR
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
