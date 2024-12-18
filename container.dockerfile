@@ -45,6 +45,15 @@ sed -i 's|message_journal_dir = /var/lib/graylog-server/journal|message_journal_
 COPY contents/supervisor/supervisord.conf /etc/supervisord.conf
 COPY --chown=runtime:runtime contents/supervisor/autoinit.sh /opt/supervisor/bin
 
+# Create home directory for runtime user
+RUN mkdir -p /home/runtime && chown -R runtime:runtime /home/runtime
+
+# Switch to runtime user
+USER runtime
+
+# Add command aliases
+RUN echo 'alias ll="ls -ahl"' >> /home/runtime/.bashrc
+
 # Configure entrypoint
 EXPOSE 5044/tcp
 EXPOSE 5140/tcp
@@ -54,6 +63,5 @@ EXPOSE 12201/tcp
 EXPOSE 12201/udp
 EXPOSE 13301/tcp
 EXPOSE 13302/tcp
-USER runtime
 WORKDIR $LOGS_DIR
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
