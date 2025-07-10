@@ -2,7 +2,7 @@ ARG VERSION
 FROM ubuntu:jammy-20250619
 ARG VERSION
 ENV CONTAINER_VERSION=$VERSION
-ENV GRAYLOG_VERSION=6.2.5-1
+ENV GRAYLOG_VERSION=6.3.1-1
 ENV GRAYLOG_PLUGIN_DIR=/usr/share/graylog-server/plugin
 ENV LOGS_DIR=/opt/supervisor/logs
 
@@ -15,8 +15,8 @@ RUN echo "deb [arch="$(dpkg --print-architecture)" signed-by=/usr/share/keyrings
 
 # Install all packages, then create runtime user and directories
 RUN apt update && apt upgrade -y && \
-wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/6.2/g/graylog-datanode/graylog-datanode_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
-wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/6.2/g/graylog-server/graylog-server_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
+wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/6.3/g/graylog-datanode/graylog-datanode_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
+wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/6.3/g/graylog-server/graylog-server_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
 DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt install --no-install-recommends -y ./*.deb iputils-ping less mongodb-org nano supervisor && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/ssl/private/ssl-cert-snakeoil.key ./*.deb && \
 addgroup runtime && useradd -g runtime runtime && \
