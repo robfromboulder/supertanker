@@ -1,7 +1,7 @@
-#!/bin/bash
-docker stop supertanker
-docker rm supertanker
-docker volume rm supertanker
-docker image rm -f supertanker:6.3.0
-docker system prune -f
+#!/bin/bash -x
+
+# remove local containers & cached layers
+./clean.sh
+
+# build for multiple chipsets and push to DockerHub
 docker buildx build --platform linux/amd64,linux/arm64 --provenance=true --sbom=true --build-arg VERSION=$1 -f container.dockerfile -t robfromboulder/supertanker:$1 --no-cache --push .

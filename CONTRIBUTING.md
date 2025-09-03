@@ -64,7 +64,7 @@ docker buildx use mybuilder
 
 Build and push containers:
 ```bash
-./packagex.sh 6.3.(BUILD_NUMBER)(BUILD_LETTER)
+./release.sh 6.3.(BUILD_NUMBER)(BUILD_LETTER)
 ```
 
 Update version number shown in README and commit this change.
