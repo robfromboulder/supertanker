@@ -153,3 +153,6 @@ exit
 ```
 
 ⚠️ For changes requiring root permissions, see [CONTRIBUTING](CONTRIBUTING.md) to connect as root or roll your own build.
+
+---
+<small>&copy; 2024-2025 Rob Dickinson (robfromboulder)</small>
