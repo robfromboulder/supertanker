@@ -9,4 +9,4 @@ docker rm supertanker
 docker image rm -f supertanker:6.3.0
 
 # build containers for native chipset
-docker build --build-arg VERSION=6.3.0 -f container.dockerfile -t supertanker:6.3.0 .
+docker build --no-cache --build-arg VERSION=6.3.0 -f container.dockerfile -t supertanker:6.3.0 .
