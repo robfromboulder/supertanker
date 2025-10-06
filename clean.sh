@@ -7,7 +7,7 @@ docker volume rm supertanker
 
 # remove local containers
 # x.x.0 always refers to private local builds
-docker image rm -f supertanker:6.3.0
+docker image rm -f supertanker:7.0.0
 
 # remove any cached layers
 docker system prune -f

@@ -1,8 +1,8 @@
 ARG VERSION
-FROM ubuntu:jammy-20250819
+FROM ubuntu:jammy-20251001
 ARG VERSION
 ENV CONTAINER_VERSION=$VERSION
-ENV GRAYLOG_VERSION=6.3.3-1
+ENV GRAYLOG_VERSION=7.0.0-5.beta.3
 ENV GRAYLOG_PLUGIN_DIR=/usr/share/graylog-server/plugin
 ENV LOGS_DIR=/opt/supervisor/logs
 
@@ -10,13 +10,13 @@ ENV LOGS_DIR=/opt/supervisor/logs
 RUN sed -i 's|ports.ubuntu.com|mirrors.ocf.berkeley.edu|g' /etc/apt/sources.list && apt update && apt install --no-install-recommends -y ca-certificates curl gnupg wget && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/ssl/private/ssl-cert-snakeoil.key && install -m 0755 -d /etc/apt/keyrings
 
 # Add MongoDB repository
-RUN curl -fsSL https://pgp.mongodb.com/server-6.0.asc | gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
-RUN echo "deb [arch="$(dpkg --print-architecture)" signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+RUN curl -fsSL https://pgp.mongodb.com/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+RUN echo "deb [arch="$(dpkg --print-architecture)" signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
 # Install all packages, then create runtime user and directories
 RUN apt update && apt upgrade -y && \
-wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/6.3/g/graylog-datanode/graylog-datanode_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
-wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/6.3/g/graylog-server/graylog-server_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
+wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/7.0/g/graylog-datanode/graylog-datanode_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
+wget --progress=bar:force "https://packages.graylog2.org/repo/debian/pool/stable/7.0/g/graylog-server/graylog-server_${GRAYLOG_VERSION}_$(dpkg --print-architecture).deb" && \
 DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt install --no-install-recommends -y ./*.deb iputils-ping less mongodb-org nano supervisor && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/ssl/private/ssl-cert-snakeoil.key ./*.deb && \
 addgroup runtime && useradd -g runtime runtime && \
